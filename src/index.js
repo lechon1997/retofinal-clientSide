@@ -6,12 +6,22 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Registrarse from "./pages/Registrarse";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./reducers/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/styles/global.scss";
 
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
+
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <App>
         <Routes>
@@ -21,5 +31,5 @@ root.render(
         </Routes>
       </App>
     </BrowserRouter>
-  </React.StrictMode>
+  </Provider>
 );

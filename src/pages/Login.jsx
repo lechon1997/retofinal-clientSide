@@ -6,10 +6,13 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { cargarUsuario } from "../actions";
 
 const auth = getAuth(firebaseApp);
 
 function Login() {
+  const dispatch = useDispatch();
   const firestore = getFirestore(firebaseApp);
   let navigate = useNavigate();
 
@@ -28,6 +31,7 @@ function Login() {
       const res = await signInWithEmailAndPassword(auth, email, password);
       const docuRef = doc(firestore, `usuarios/${res.user.uid}`);
       setDoc(docuRef, { correo: email });
+      dispatch(cargarUsuario(email));
       navigate("/home");
     } catch (e) {
       window.alert("usuario incorrecto");
@@ -40,6 +44,7 @@ function Login() {
       .then((res) => {
         const docuRef = doc(firestore, `usuarios/${res.user.uid}`);
         setDoc(docuRef, { correo: res.user.email });
+        dispatch(cargarUsuario(res.user.email));
         navigate("/home");
       })
       .catch((err) => {
