@@ -9,7 +9,7 @@ const NavBar = ({ usuario }) => {
         <p className="m-0 ms-2 bienvenido">Binvenido {usuario}</p>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark navbarxd ">
         <div className="container-fluid">
           <button
             className="navbar-toggler"

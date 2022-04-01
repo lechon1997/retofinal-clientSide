@@ -29,8 +29,6 @@ function Login() {
 
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-      const docuRef = doc(firestore, `usuarios/${res.user.uid}`);
-      setDoc(docuRef, { correo: email });
       dispatch(cargarUsuario(email));
       navigate("/home");
     } catch (e) {
@@ -42,8 +40,6 @@ function Login() {
     var google_provider = new GoogleAuthProvider();
     signInWithPopup(auth, google_provider)
       .then((res) => {
-        const docuRef = doc(firestore, `usuarios/${res.user.uid}`);
-        setDoc(docuRef, { correo: res.user.email });
         dispatch(cargarUsuario(res.user.email));
         navigate("/home");
       })

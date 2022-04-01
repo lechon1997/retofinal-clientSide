@@ -40,8 +40,19 @@
   margin-right: 12px;
   transition: transform 0.1s;
 }
+.navbarxd {
+  padding-left: 12px;
+}
+
+.nav-btn:hover {
+  color: #009688;
+}
 
 .active {
   color: #009688;
-  transform: scale(1.09);
+  transform: scale(1.05);
+}
+
+.min-width-500px {
+  min-width: 500px;
 }

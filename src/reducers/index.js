@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 
 const initialState = {
   user: {},
+  clientes: [],
 };
 
 const rootReducer = combineReducers({
@@ -11,6 +12,12 @@ const rootReducer = combineReducers({
         return {
           ...state,
           user: action.payload,
+        };
+      case "CARGAR_CLIENTES":
+        console.log(action.payload);
+        return {
+          ...state,
+          clientes: action.payload,
         };
       default:
         return state;
