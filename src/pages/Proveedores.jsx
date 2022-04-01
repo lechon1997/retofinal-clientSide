@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { fetchNuevoProveedor } from "../actions";
 
 import {
   Table,
@@ -27,7 +28,12 @@ const Proveedores = ({ proveedores, dispatch }) => {
 
   const nuevoProveedor = (e) => {
     e.preventDefault();
-    console.log("hola prov");
+    const identifiacionProveedor = e.target.documento.value;
+    const nombre = e.target.name.value;
+    const celular = e.target.celular.value;
+    console.log(identifiacionProveedor, nombre, celular);
+    dispatch(fetchNuevoProveedor({ identifiacionProveedor, nombre, celular }));
+    ocultarModalNuevoProveedor(false);
   };
 
   return (

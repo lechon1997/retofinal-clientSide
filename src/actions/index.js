@@ -4,9 +4,6 @@ export function fetchClientes() {
   return async (dispatch) => {
     fetch(`${URL_BASE}/cliente`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((response) => response.json())
       .then((jsondata) =>
@@ -19,9 +16,6 @@ export function fetchProveedores() {
   return async (dispatch) => {
     fetch(`${URL_BASE}/proveedor`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((response) => response.json())
       .then((jsondata) =>
@@ -42,6 +36,22 @@ export function fetchNuevoCliente(data) {
       .then((response) => response.json())
       .then((jsondata) =>
         dispatch({ type: "NUEVO_CLIENTE", payload: jsondata })
+      );
+  };
+}
+
+export function fetchNuevoProveedor(data) {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/proveedor`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((jsondata) =>
+        dispatch({ type: "NUEVO_PROVEEDOR", payload: jsondata })
       );
   };
 }

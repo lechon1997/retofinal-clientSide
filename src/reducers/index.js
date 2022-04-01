@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
           ...state,
           user: action.payload,
         };
+
       case "CARGAR_CLIENTES":
         return {
           ...state,
@@ -31,6 +32,13 @@ const rootReducer = combineReducers({
           ...state,
           clientes: [...state.clientes, action.payload],
         };
+
+      case "NUEVO_PROVEEDOR":
+        return {
+          ...state,
+          proveedores: [...state.proveedores, action.payload],
+        };
+
       default:
         return state;
     }
