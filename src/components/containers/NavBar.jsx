@@ -36,6 +36,9 @@ const NavBar = ({ usuario }) => {
               <NavLink className="nav-btn" to="/home/inventario">
                 Inventario
               </NavLink>
+              <NavLink className="nav-btn" to="/home/volantes">
+                Volantes
+              </NavLink>
             </div>
           </div>
         </div>

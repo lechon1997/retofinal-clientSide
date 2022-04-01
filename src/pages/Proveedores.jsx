@@ -5,13 +5,11 @@ import { fetchNuevoProveedor } from "../actions";
 import {
   Table,
   Button,
-  Container,
   Modal,
   ModalHeader,
   ModalBody,
   FormGroup,
   ModalFooter,
-  Alert,
 } from "reactstrap";
 
 const Proveedores = ({ proveedores, dispatch }) => {

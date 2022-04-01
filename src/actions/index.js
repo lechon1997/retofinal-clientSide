@@ -24,6 +24,19 @@ export function fetchProveedores() {
   };
 }
 
+export function fetchVolantes() {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/volante-proveedor`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((jsondata) => {
+        console.log("volantes: ", jsondata);
+        dispatch({ type: "CARGAR_VOLANTES", payload: jsondata });
+      });
+  };
+}
+
 export function fetchNuevoCliente(data) {
   return async (dispatch) => {
     fetch(`${URL_BASE}/cliente`, {
@@ -59,5 +72,11 @@ export function fetchNuevoProveedor(data) {
 export function cargarUsuario(usuario) {
   return (dispatch) => {
     dispatch({ type: "CARGAR_USUARIO", payload: usuario });
+  };
+}
+
+export function nuevoProductoVolante(producto) {
+  return (dispatch) => {
+    dispatch({ type: "NUEVO_PRODUCTO_VOLANTE", payload: producto });
   };
 }

@@ -7,13 +7,15 @@ import Inventario from "./pages/Inventario";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Registrarse from "./pages/Registrarse";
+import Volantes from "./pages/Volantes";
 import PantallaPrincipal from "./components/containers/PantallaPrincipal";
-import { fetchClientes, fetchProveedores } from "./actions";
+import { fetchClientes, fetchProveedores, fetchVolantes } from "./actions";
 import { connect } from "react-redux";
 function App({ dispatch }) {
   useEffect(() => {
     dispatch(fetchClientes());
     dispatch(fetchProveedores());
+    dispatch(fetchVolantes());
   }, []);
 
   return (
@@ -27,6 +29,7 @@ function App({ dispatch }) {
               <Route path="proveedores" element={<Proveedores />} />
               <Route path="historial" element={<Historial />} />
               <Route path="inventario" element={<Inventario />} />
+              <Route path="volantes" element={<Volantes />} />
             </Route>
             <Route path="/registrarse" element={<Registrarse />} />
           </Routes>

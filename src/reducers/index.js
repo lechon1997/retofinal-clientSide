@@ -4,6 +4,8 @@ const initialState = {
   user: {},
   clientes: [],
   proveedores: [],
+  volantes: [],
+  productos_volante: [],
 };
 
 const rootReducer = combineReducers({
@@ -25,6 +27,21 @@ const rootReducer = combineReducers({
         return {
           ...state,
           proveedores: action.payload,
+        };
+      case "CARGAR_VOLANTES":
+        return {
+          ...state,
+          volantes: action.payload,
+        };
+      case "NUEVO_CLIENTE":
+        return {
+          ...state,
+          clientes: [...state.clientes, action.payload],
+        };
+      case "NUEVO_PRODUCTO_VOLANTE":
+        return {
+          ...state,
+          productos_volante: [...state.productos_volante, action.payload],
         };
 
       case "NUEVO_CLIENTE":
