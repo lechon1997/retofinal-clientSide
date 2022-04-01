@@ -15,6 +15,21 @@ export function fetchClientes() {
   };
 }
 
+export function fetchProveedores() {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/proveedor`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((jsondata) =>
+        dispatch({ type: "CARGAR_PROVEEDORES", payload: jsondata })
+      );
+  };
+}
+
 export function fetchNuevoCliente(data) {
   return async (dispatch) => {
     fetch(`${URL_BASE}/cliente`, {

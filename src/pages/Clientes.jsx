@@ -37,10 +37,7 @@ const Clientes = ({ clientes, dispatch }) => {
 
   return (
     <div className="w-75 container min-width-500px d-flex flex-column align-items-end">
-      <Button
-        onClick={mostrarModalNuevoCliente}
-        color="success btn-ingresar-cliente mt-2 mb-2"
-      >
+      <Button onClick={mostrarModalNuevoCliente} color="success mt-2 mb-2">
         Nuevo cliente
       </Button>
       <Table className="">

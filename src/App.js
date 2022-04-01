@@ -8,11 +8,12 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Registrarse from "./pages/Registrarse";
 import PantallaPrincipal from "./components/containers/PantallaPrincipal";
-import { fetchClientes } from "./actions";
+import { fetchClientes, fetchProveedores } from "./actions";
 import { connect } from "react-redux";
 function App({ dispatch }) {
   useEffect(() => {
     dispatch(fetchClientes());
+    dispatch(fetchProveedores());
   }, []);
 
   return (

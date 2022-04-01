@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 const initialState = {
   user: {},
   clientes: [],
+  proveedores: [],
 };
 
 const rootReducer = combineReducers({
@@ -14,10 +15,15 @@ const rootReducer = combineReducers({
           user: action.payload,
         };
       case "CARGAR_CLIENTES":
-        console.log(action.payload);
         return {
           ...state,
           clientes: action.payload,
+        };
+
+      case "CARGAR_PROVEEDORES":
+        return {
+          ...state,
+          proveedores: action.payload,
         };
 
       case "NUEVO_CLIENTE":
