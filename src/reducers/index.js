@@ -19,6 +19,12 @@ const rootReducer = combineReducers({
           ...state,
           clientes: action.payload,
         };
+
+      case "NUEVO_CLIENTE":
+        return {
+          ...state,
+          clientes: [...state.clientes, action.payload],
+        };
       default:
         return state;
     }
