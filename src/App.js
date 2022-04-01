@@ -12,6 +12,8 @@ function App({ children }) {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
 
+  /*
+  
   async function getRol(uid) {
     const docuRef = doc(firestore, `usuarios/${uid}`);
     const docuCifrada = await getDoc(docuRef);
@@ -24,7 +26,6 @@ function App({ children }) {
       const userData = {
         uid: usuarioFirebase.uid,
         email: usuarioFirebase.email,
-        rol: rol,
       };
       setUser(userData);
       console.log("userData fianl", userData);
@@ -43,14 +44,7 @@ function App({ children }) {
     }
   });
 
-  useEffect(() => {
-    if (user) {
-      navigate("/home");
-    } else {
-      navigate("/login");
-    }
-  }, []);
-
+   */
   return <div className="pantalla-principal">{children}</div>;
 }
 

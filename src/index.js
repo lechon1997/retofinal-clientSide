@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
@@ -8,7 +9,8 @@ import Registrarse from "./pages/Registrarse";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/styles/global.scss";
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App>
@@ -19,6 +21,5 @@ ReactDOM.render(
         </Routes>
       </App>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
