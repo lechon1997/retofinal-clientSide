@@ -1,4 +1,4 @@
-const URL_BASE = "http://localhost:8080/api";
+const URL_BASE = "https://sofka-facturacion-backend.herokuapp.com/api";
 
 export function fetchClientes() {
   return async (dispatch) => {
@@ -49,6 +49,22 @@ export function fetchNuevoCliente(data) {
       .then((response) => response.json())
       .then((jsondata) =>
         dispatch({ type: "NUEVO_CLIENTE", payload: jsondata })
+      );
+  };
+}
+
+export function fetchNuevoProducto(data) {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/producto`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((jsondata) =>
+        dispatch({ type: "NUEVO_PRODUCTO", payload: jsondata })
       );
   };
 }

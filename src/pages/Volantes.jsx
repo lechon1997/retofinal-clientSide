@@ -4,6 +4,7 @@ import {
   nuevoProductoVolante,
   fetchNuevoVolanteProducto,
   seleccionarProveedor,
+  fetchNuevoProducto,
 } from "../actions";
 import {
   Table,
@@ -41,14 +42,12 @@ const Volantes = ({
 
   const nuevoVolante = (e) => {
     e.preventDefault();
-    //console.log(productos_volantes);
     const idProveedor = e.target.categoria2.value;
     const fecha = e.target.fecha.value;
     const { identifiacionProveedor, nombre } = proveedores.filter(
       (a) => a.identificacionProveedor !== idProveedor
     )[0];
 
-    //console.log(p);
     console.log({ identifiacionProveedor });
     const info = {
       identificacionProveedor: identifiacionProveedor,
@@ -58,6 +57,7 @@ const Volantes = ({
     };
 
     dispatch(fetchNuevoVolanteProducto(info));
+    productos_volantes.forEach((p) => dispatch(fetchNuevoProducto(p)));
   };
 
   const agregarProductoVolante = () => {
@@ -65,6 +65,7 @@ const Volantes = ({
       nuevoProductoVolante({
         nombre: nombreDelProducto,
         precio: precioDelProducto,
+        minimo: 10,
         cantidad: cantidadDelProducto,
       })
     );
