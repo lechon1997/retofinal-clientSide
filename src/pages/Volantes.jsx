@@ -5,17 +5,16 @@ import {
   fetchNuevoVolanteProducto,
   seleccionarProveedor,
   fetchNuevoProducto,
+  limpiarProductosVolantes,
 } from "../actions";
 import {
   Table,
   Button,
-  Container,
   Modal,
   ModalHeader,
   ModalBody,
   FormGroup,
   ModalFooter,
-  Alert,
 } from "reactstrap";
 
 const Volantes = ({
@@ -26,6 +25,7 @@ const Volantes = ({
   proveedor,
   dispatch,
 }) => {
+  console.log("tus volantes son: ", volantes);
   const [modalNuevoVolante, setModalNuevoVolante] = useState(false);
 
   const [nombreDelProducto, setNombreDelProducto] = useState("");
@@ -34,6 +34,10 @@ const Volantes = ({
 
   const ocultarModalNuevoVolante = () => {
     setModalNuevoVolante(false);
+    setNombreDelProducto("");
+    setCantidadDelProducto(1);
+    setPrecioDelProducto(0);
+    dispatch(limpiarProductosVolantes());
   };
 
   const mostrarModalNuevoVolante = () => {
@@ -43,12 +47,12 @@ const Volantes = ({
   const nuevoVolante = (e) => {
     e.preventDefault();
     const idProveedor = e.target.categoria2.value;
+    console.log(idProveedor);
     const fecha = e.target.fecha.value;
     const { identifiacionProveedor, nombre } = proveedores.filter(
-      (a) => a.identificacionProveedor !== idProveedor
+      (itemInArray) => itemInArray.identificacionProveedor !== idProveedor
     )[0];
 
-    console.log({ identifiacionProveedor });
     const info = {
       identificacionProveedor: identifiacionProveedor,
       nombreProveedor: nombre,
@@ -58,6 +62,7 @@ const Volantes = ({
 
     dispatch(fetchNuevoVolanteProducto(info));
     productos_volantes.forEach((p) => dispatch(fetchNuevoProducto(p)));
+    confirmarVolante();
   };
 
   const agregarProductoVolante = () => {
@@ -83,6 +88,13 @@ const Volantes = ({
     setPrecioDelProducto(e.target.value);
   };
 
+  const confirmarVolante = () => {
+    setModalNuevoVolante(false);
+    setNombreDelProducto("");
+    setCantidadDelProducto(1);
+    setPrecioDelProducto(0);
+    dispatch(limpiarProductosVolantes());
+  };
   return (
     <div className="w-75 container min-width-500px d-flex flex-column align-items-end">
       <Button onClick={mostrarModalNuevoVolante} color="success mt-2 mb-2">
@@ -93,8 +105,7 @@ const Volantes = ({
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Celular</th>
-            <th>Acciones</th>
+            <th>Fecha</th>
           </tr>
         </thead>
         <tbody>
@@ -103,8 +114,12 @@ const Volantes = ({
               <tr key={v.identificacionProveedor}>
                 <td>{v.identificacionProveedor}</td>
                 <td>{v.nombreProveedor}</td>
+
                 <td>{v.fecha}</td>
-                <td>xd</td>
+
+                <td>
+                  <Button color="primary">Ver volante</Button>
+                </td>
               </tr>
             );
           })}

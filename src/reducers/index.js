@@ -8,6 +8,7 @@ const initialState = {
   volantes: [],
   productos_volante: [],
   productos: [],
+  inventario: [],
 };
 
 const rootReducer = combineReducers({
@@ -75,6 +76,18 @@ const rootReducer = combineReducers({
         return {
           ...state,
           productos: [...state.productos, action.payload],
+        };
+
+      case "LIMPIAR_PRODUCTO_VOLANTE":
+        return {
+          ...state,
+          productos_volante: action.payload,
+        };
+
+      case "CARGAR_INVENTARIO":
+        return {
+          ...state,
+          inventario: action.payload,
         };
 
       default:

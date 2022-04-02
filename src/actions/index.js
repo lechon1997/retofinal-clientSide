@@ -31,8 +31,19 @@ export function fetchVolantes() {
     })
       .then((response) => response.json())
       .then((jsondata) => {
-        console.log("volantes: ", jsondata);
         dispatch({ type: "CARGAR_VOLANTES", payload: jsondata });
+      });
+  };
+}
+
+export function fetchCargarInventario() {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/producto`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((jsondata) => {
+        dispatch({ type: "CARGAR_INVENTARIO", payload: jsondata });
       });
   };
 }
@@ -94,6 +105,12 @@ export function cargarUsuario(usuario) {
 export function nuevoProductoVolante(producto) {
   return (dispatch) => {
     dispatch({ type: "NUEVO_PRODUCTO_VOLANTE", payload: producto });
+  };
+}
+
+export function limpiarProductosVolantes() {
+  return (dispatch) => {
+    dispatch({ type: "LIMPIAR_PRODUCTO_VOLANTE", payload: [] });
   };
 }
 
