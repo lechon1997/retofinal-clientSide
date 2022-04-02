@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { nuevoProductoVolante } from "../actions";
+import {
+  nuevoProductoVolante,
+  fetchNuevoVolanteProducto,
+  seleccionarProveedor,
+} from "../actions";
 import {
   Table,
   Button,
@@ -18,12 +22,14 @@ const Volantes = ({
   clientes,
   proveedores,
   productos_volantes,
+  proveedor,
   dispatch,
 }) => {
   const [modalNuevoVolante, setModalNuevoVolante] = useState(false);
 
   const [nombreDelProducto, setNombreDelProducto] = useState("");
   const [cantidadDelProducto, setCantidadDelProducto] = useState(1);
+  const [precioDelProducto, setPrecioDelProducto] = useState(0);
 
   const ocultarModalNuevoVolante = () => {
     setModalNuevoVolante(false);
@@ -35,13 +41,30 @@ const Volantes = ({
 
   const nuevoVolante = (e) => {
     e.preventDefault();
-    console.log("volante");
+    //console.log(productos_volantes);
+    const idProveedor = e.target.categoria2.value;
+    const fecha = e.target.fecha.value;
+    const { identifiacionProveedor, nombre } = proveedores.filter(
+      (a) => a.identificacionProveedor !== idProveedor
+    )[0];
+
+    //console.log(p);
+    console.log({ identifiacionProveedor });
+    const info = {
+      identificacionProveedor: identifiacionProveedor,
+      nombreProveedor: nombre,
+      fecha: fecha,
+      productos: productos_volantes,
+    };
+
+    dispatch(fetchNuevoVolanteProducto(info));
   };
 
   const agregarProductoVolante = () => {
     dispatch(
       nuevoProductoVolante({
         nombre: nombreDelProducto,
+        precio: precioDelProducto,
         cantidad: cantidadDelProducto,
       })
     );
@@ -53,6 +76,10 @@ const Volantes = ({
 
   const onChangeNombreP = (e) => {
     setNombreDelProducto(e.target.value);
+  };
+
+  const onChagePrecioProducto = (e) => {
+    setPrecioDelProducto(e.target.value);
   };
 
   return (
@@ -92,33 +119,22 @@ const Volantes = ({
         <form onSubmit={nuevoVolante}>
           <ModalBody>
             <FormGroup>
-              <select
-                defaultValue=""
-                name="categoria"
-                className="form-select"
-                aria-label="Default select example"
-              >
-                <option value="0">Seleccione un cliente...</option>
-                {clientes.map((c) => {
-                  return (
-                    <option key={c.documentoIdentificacion} value={c.nombre}>
-                      {c.documentoIdentificacion + " - " + c.nombre}
-                    </option>
-                  );
-                })}
-              </select>
+              <input type="date" name="fecha" />
             </FormGroup>
             <FormGroup>
               <select
                 defaultValue=""
-                name="categoria"
+                name="categoria2"
                 className="form-select"
                 aria-label="Default select example"
               >
                 <option value="0">Seleccione una proveedor...</option>
                 {proveedores.map((p) => {
                   return (
-                    <option key={p.identifiacionProveedor} value={p.nombre}>
+                    <option
+                      key={p.identifiacionProveedor}
+                      value={p.identifiacionProveedor}
+                    >
                       {p.identifiacionProveedor + " - " + p.nombre}
                     </option>
                   );
@@ -141,13 +157,23 @@ const Volantes = ({
                   />
                   <input
                     type="number"
-                    className="form-control wid-number"
+                    className="form-control wid-number ms-2"
                     min="1"
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
                     onChange={onChangeCantidad}
                   />
                 </div>
+                <input
+                  type="number"
+                  className="form-control w-50 mt-2 "
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  name="precio"
+                  placeholder="Precio"
+                  onChange={onChagePrecioProducto}
+                />
+
                 <Button
                   onClick={agregarProductoVolante}
                   color="success"
@@ -164,6 +190,7 @@ const Volantes = ({
                   <tr>
                     <th>Nombre</th>
                     <th>Cantidad</th>
+                    <th>Precio</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,6 +199,7 @@ const Volantes = ({
                       <tr>
                         <td>{c.nombre}</td>
                         <td>{c.cantidad}</td>
+                        <td>{c.precio}</td>
                       </tr>
                     );
                   })}
@@ -201,6 +229,7 @@ const mapStateToProps = (state) => ({
   clientes: state.data.clientes,
   proveedores: state.data.proveedores,
   productos_volantes: state.data.productos_volante,
+  proveedor: state.data.proveedor,
 });
 
 export default connect(mapStateToProps)(Volantes);

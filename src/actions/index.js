@@ -80,3 +80,25 @@ export function nuevoProductoVolante(producto) {
     dispatch({ type: "NUEVO_PRODUCTO_VOLANTE", payload: producto });
   };
 }
+
+export function fetchNuevoVolanteProducto(data) {
+  return async (dispatch) => {
+    fetch(`${URL_BASE}/volante-proveedor`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((jsondata) =>
+        dispatch({ type: "NUEVO_VOLANTE_PRODUCTO", payload: jsondata })
+      );
+  };
+}
+
+export function seleccionarProveedor(id) {
+  return async (dispatch) => {
+    dispatch({ type: "SELECCIONAR_PROVEEDOR", payload: id });
+  };
+}

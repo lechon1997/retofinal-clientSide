@@ -4,6 +4,7 @@ const initialState = {
   user: {},
   clientes: [],
   proveedores: [],
+  proveedor: {},
   volantes: [],
   productos_volante: [],
 };
@@ -54,6 +55,19 @@ const rootReducer = combineReducers({
         return {
           ...state,
           proveedores: [...state.proveedores, action.payload],
+        };
+      case "NUEVO_VOLANTE_PRODUCTO":
+        return {
+          ...state,
+          volantes: [...state.volantes, action.payload],
+        };
+
+      case "SELECCIONAR_PROVEEDOR":
+        return {
+          ...state,
+          proveedor: state.proveedores.filter(
+            (p) => p.identificacionProveedor !== action.payload
+          )[0].foo,
         };
 
       default:
